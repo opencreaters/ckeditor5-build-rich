@@ -379,4 +379,4 @@ ClassicEditor.defaultConfig = {
 	placeholder: 'Type or paste your content here!'
 }
 
-export type { EditorConfig, ViewDocumentBlurEvent, ViewDocumentFocusEvent, DocumentChangeEvent, GetEventInfo };
+export type { Editor, EditorConfig, ViewDocumentBlurEvent, ViewDocumentFocusEvent, DocumentChangeEvent, GetEventInfo };
