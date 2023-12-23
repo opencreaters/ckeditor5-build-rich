@@ -27,18 +27,21 @@ import { WordCount } from '@ckeditor/ckeditor5-word-count';
 import { Highlight } from '@ckeditor/ckeditor5-highlight';
 import { Font } from '@ckeditor/ckeditor5-font';
 import { Style } from '@ckeditor/ckeditor5-style';
+import { Plugin } from '@ckeditor/ckeditor5-core';
 
-import { Plugin } from 'ckeditor5/src/core';
-import type { Editor, EditorConfig } from 'ckeditor5/src/core';
 import { S3UploadAdapter } from "./s3-upload-adapter";
 import { EMOJIS_ARRAY, LANGUAGES, REDUCED_MATERIAL_COLORS } from "./data";
 import { Locale } from '@ckeditor/ckeditor5-utils';
 
 import { createLabeledInputText, LabeledFieldView } from '@ckeditor/ckeditor5-ui';
 
+import type { Editor, EditorConfig } from '@ckeditor/ckeditor5-core';
 import type { GetEventInfo } from '@ckeditor/ckeditor5-utils';
 import type { DocumentChangeEvent } from '@ckeditor/ckeditor5-engine';
 import type { ViewDocumentBlurEvent, ViewDocumentFocusEvent } from '@ckeditor/ckeditor5-engine/src/view/observer/focusobserver';
+
+import { ContextWatchdog, EditorWatchdog } from '@ckeditor/ckeditor5-watchdog';
+import { WatchdogConfig } from '@ckeditor/ckeditor5-watchdog/src/watchdog';
 
 import './styles.css'
 import './content.css'
@@ -381,3 +384,4 @@ ClassicEditor.defaultConfig = {
 }
 
 export type { Editor, EditorConfig, ViewDocumentBlurEvent, ViewDocumentFocusEvent, DocumentChangeEvent, GetEventInfo };
+export { ContextWatchdog, EditorWatchdog, WatchdogConfig }
