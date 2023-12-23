@@ -28,13 +28,17 @@ import { Highlight } from '@ckeditor/ckeditor5-highlight';
 import { Font } from '@ckeditor/ckeditor5-font';
 import { Style } from '@ckeditor/ckeditor5-style';
 
-import { Plugin, type Editor } from 'ckeditor5/src/core';
+import { Plugin, type Editor, type EditorConfig } from 'ckeditor5/src/core';
 import { S3UploadAdapter } from "./s3-upload-adapter";
 import { EMOJIS_ARRAY, LANGUAGES, REDUCED_MATERIAL_COLORS } from "./data";
 import { Locale } from '@ckeditor/ckeditor5-utils';
-import { EditorConfig } from "@ckeditor/ckeditor5-core";
 
 import { createLabeledInputText, LabeledFieldView } from '@ckeditor/ckeditor5-ui';
+
+import type { GetEventInfo } from '@ckeditor/ckeditor5-utils';
+import type { DocumentChangeEvent } from '@ckeditor/ckeditor5-engine';
+import type { ViewDocumentBlurEvent, ViewDocumentFocusEvent } from '@ckeditor/ckeditor5-engine/src/view/observer/focusobserver';
+
 import './styles.css'
 import './content.css'
 
@@ -375,4 +379,4 @@ ClassicEditor.defaultConfig = {
 	placeholder: 'Type or paste your content here!'
 }
 
-export type { EditorConfig };
+export type { EditorConfig, ViewDocumentBlurEvent, ViewDocumentFocusEvent, DocumentChangeEvent, GetEventInfo };

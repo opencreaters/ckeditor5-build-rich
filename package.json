@@ -11,6 +11,12 @@
   "files": [
     "build"
   ],
+  "dependencies": {
+    "@ckeditor/ckeditor5-core": "37.1.0",
+    "@ckeditor/ckeditor5-engine": "37.1.0",
+    "@ckeditor/ckeditor5-utils": "37.1.0",
+    "@ckeditor/ckeditor5-watchdog": "37.1.0"
+  },
   "devDependencies": {
     "@ckeditor/ckeditor5-alignment": "37.1.0",
     "@ckeditor/ckeditor5-autoformat": "37.1.0",
@@ -64,6 +70,6 @@
     "start": "webpack --watch --mode development",
     "commit": "if [ -n \"$(git diff --exit-code)\" ]; then git add . && git commit -m 'Auto-commit before publishing'; fi",
     "prepublish:run": "npm run commit && npm version patch && cd ..",
-    "publish": "npm run prepublish:run && npm run build && npm publish --access public"
+    "pub": "npm run prepublish:run && npm run build && npm publish --access public"
   }
 }
