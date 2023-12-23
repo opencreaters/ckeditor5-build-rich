@@ -28,7 +28,8 @@ import { Highlight } from '@ckeditor/ckeditor5-highlight';
 import { Font } from '@ckeditor/ckeditor5-font';
 import { Style } from '@ckeditor/ckeditor5-style';
 
-import { Plugin, type Editor, type EditorConfig } from 'ckeditor5/src/core';
+import { Plugin } from 'ckeditor5/src/core';
+import type { Editor, EditorConfig } from 'ckeditor5/src/core';
 import { S3UploadAdapter } from "./s3-upload-adapter";
 import { EMOJIS_ARRAY, LANGUAGES, REDUCED_MATERIAL_COLORS } from "./data";
 import { Locale } from '@ckeditor/ckeditor5-utils';
