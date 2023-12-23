@@ -64,6 +64,6 @@
     "start": "webpack --watch --mode development",
     "commit": "if [ -n \"$(git diff --exit-code)\" ]; then git add . && git commit -m 'Auto-commit before publishing'; fi",
     "prepublish:run": "npm run commit && npm version patch && cd ..",
-    "publish": "npm run prepublish:run && npm run build && npm publish build --access public"
+    "publish": "npm run prepublish:run && npm run build && npm publish --access public"
   }
 }
