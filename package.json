@@ -1,5 +1,5 @@
 {
-  "name": "@opencoders/ckeditor5-build-classic",
+  "name": "@opencreaters/ckeditor5-build-classic",
   "author": "CKSource (http://cksource.com/)",
   "license": "GPL-2.0-or-later",
   "homepage": "https://ckeditor.com/ckeditor-5",
@@ -61,6 +61,9 @@
     "build": "webpack --mode production",
     "build:local": "webpack --mode production",
     "postbuild": "tsc -p ./tsconfig.types.json",
-    "start": "webpack --watch --mode development"
+    "start": "webpack --watch --mode development",
+    "commit": "if [ -n \"$(git diff --exit-code)\" ]; then git add . && git commit -m 'Auto-commit before publishing'; fi",
+    "prepublish:run": "npm run commit && cd libs/codejudge && npm version patch && cd ..",
+    "publish": "npm run prepublish:run && npm run build && npm publish build --access public"
   }
 }

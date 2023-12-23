@@ -18,7 +18,7 @@
 .ck.ck-content:not(.ck-style-grid__button__preview) {
     /* Make sure all content containers have some min height to make them easier to locate. */
     min-height: 200px;
-    padding: 1em 1.5em;
+    padding: 1.5em 1.5em;
 }
 
 /* Make sure all content containers are distinguishable on a web page even of not focused. */
@@ -81,19 +81,47 @@
     --ck-georgia-serif-font-stack: Georgia, Times, Times New Roman, serif;
 }
 
-.ck-content h1.document-title {
-    font-family: var(--ck-georgia-serif-font-stack);
-    font-size: 50px;
-    font-weight: bold;
-    border: 0;
+.ck-content .ck-horizontal-line {
+    margin-bottom: 1em;
 }
 
-.ck-content h2.document-subtitle {
+.ck.ck-content h3.category {
     font-family: var(--ck-georgia-serif-font-stack);
     font-size: 20px;
     font-weight: bold;
-    color: #d1d1d1;
+    color: #555;
     letter-spacing: 10px;
+    margin: 0;
+    padding: 0;
+}
+
+.ck-content h2.document-title {
+    font-family: 'Bebas Neue';
+    font-size: 50px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.ck-content h3.document-subtitle {
+    font-family: 'Bebas Neue';
+    font-size: 20px;
+    color: #555;
+    margin: 0 0 1em;
+    font-weight: normal;
+    padding: 0;
+}
+
+.ck.ck-content p.info-box {
+    --background-size: 30px;
+    --background-color: #e91e63;
+    padding: 1.2em 2em;
+    border: 1px solid var(--background-color);
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--background-color) var(--background-size), transparent var(--background-size)), linear-gradient(135deg, transparent calc(100% - var(--background-size)), var(--background-color) calc(100% - var(--background-size)), var(--background-color));
+    border-radius: 10px;
+    margin: 1.5em 2em;
+    box-shadow: 5px 5px 0 #ffe6ef;
 }
 
 .ck-content p.callout {
@@ -186,51 +214,44 @@
     color: #fff;
 }
 
-.ck-content pre.stylish-code {
-    border-color: transparent;
+.ck.ck-content pre.fancy-code {
+    border: 0;
     margin-left: 2em;
     margin-right: 2em;
     border-radius: 10px;
 }
 
-.ck-content pre.stylish-code::before {
-    --ck-stylish-code-disc-radius: 6px;
+.ck.ck-content pre.fancy-code::before {
     content: "";
     display: block;
-    height: calc(var(--ck-stylish-code-disc-radius) * 2);
-    background-image: radial-gradient(circle, #f16b5d var(--ck-stylish-code-disc-radius), rgba(0, 0, 0, 0) var(--ck-stylish-code-disc-radius)), radial-gradient(circle, #f5be4d var(--ck-stylish-code-disc-radius), rgba(0, 0, 0, 0) var(--ck-stylish-code-disc-radius)), radial-gradient(circle, #56c452 var(--ck-stylish-code-disc-radius), rgba(0, 0, 0, 0) var(--ck-stylish-code-disc-radius));
-    background-size: calc(var(--ck-stylish-code-disc-radius) * 2) calc(var(--ck-stylish-code-disc-radius) * 2);
-    background-position: 0 0, calc(var(--ck-stylish-code-disc-radius) * 3) 0, calc(var(--ck-stylish-code-disc-radius) * 6) 0;
+    height: 13px;
+    background: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NCAxMyI+CiAgPGNpcmNsZSBjeD0iNi41IiBjeT0iNi41IiByPSI2LjUiIGZpbGw9IiNGMzZCNUMiLz4KICA8Y2lyY2xlIGN4PSIyNi41IiBjeT0iNi41IiByPSI2LjUiIGZpbGw9IiNGOUJFNEQiLz4KICA8Y2lyY2xlIGN4PSI0Ny41IiBjeT0iNi41IiByPSI2LjUiIGZpbGw9IiM1NkM0NTMiLz4KPC9zdmc+Cg==);
     margin-bottom: 8px;
     background-repeat: no-repeat;
 }
 
-.ck-content pre.stylish-code-dark,
-.ck-content pre.stylish-code-bright {
-    padding: 1em;
-}
-
-.ck-content pre.stylish-code-dark {
+.ck.ck-content pre.fancy-code-dark {
     background: #272822;
-    box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.1215686275);
-    color: white;
+    color: #fff;
+    box-shadow: 5px 5px 0 #0000001f;
 }
 
-.ck-content pre.stylish-code-dark code {
-    color: white;
-}
-
-.ck-content pre.stylish-code-bright {
+.ck.ck-content pre.fancy-code-bright {
     background: #dddfe0;
     color: #000;
     box-shadow: 5px 5px 0 #b3b3b3;
 }
 
-.ck-content pre.stylish-code-bright code {
-    color: #222;
+
+.ck-content a {
+    text-decoration: none;
 }
 
+.ck-content a:hover {
+    text-decoration: underline
+}
 
+/* ---- Word Count Container Styles ------------------------------------------------------ */
 .ck.ck-word-count {
     display: flex;
     justify-content: flex-end;
@@ -244,12 +265,4 @@
 
 .ck.ck-word-count .ck-word-count__words {
     margin-right: var(--ck-spacing-standard)
-}
-
-.ck-content a {
-    text-decoration: none;
-}
-
-.ck-content a:hover {
-    text-decoration: underline
 }

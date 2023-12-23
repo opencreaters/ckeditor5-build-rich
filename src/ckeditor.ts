@@ -98,9 +98,10 @@ function S3UploadAdapterPlugin(editor: Editor) {
 	};
 }
 
-export default class ClassicEditor extends ClassicEditorBase {
 
-};
+
+
+export default class ClassicEditor extends ClassicEditorBase { };
 
 
 ClassicEditor.builtinPlugins = [
@@ -158,11 +159,11 @@ ClassicEditor.builtinPlugins = [
 ];
 ClassicEditor.defaultConfig = {
 	toolbar: {
-		shouldNotGroupWhenFull: true,
+		shouldNotGroupWhenFull: false,
 		items: [
 			'heading',
-			// '|',
-			// 'style',
+			'|',
+			'style',
 			'|',
 			'bold',
 			'italic',
@@ -294,7 +295,7 @@ ClassicEditor.defaultConfig = {
 		decorators: {
 			isExternal: {
 				mode: 'automatic',
-				callback: (url: string) => url.startsWith('http://'),
+				callback: (url: string) => url?.startsWith('http://'),
 				attributes: {
 					target: '_blank',
 					rel: 'noopener noreferrer'
@@ -314,19 +315,24 @@ ClassicEditor.defaultConfig = {
 	style: {
 		definitions: [
 			{
+				name: 'Article category',
+				element: 'h3',
+				classes: ['category']
+			},
+			{
 				name: 'Title',
-				element: 'h1',
+				element: 'h2',
 				classes: ['document-title']
 			},
 			{
 				name: 'Subtitle',
-				element: 'h2',
+				element: 'h3',
 				classes: ['document-subtitle']
 			},
 			{
-				name: 'Callout',
+				name: 'Info box',
 				element: 'p',
-				classes: ['callout']
+				classes: ['info-box']
 			},
 			{
 				name: 'Side quote',
@@ -334,29 +340,24 @@ ClassicEditor.defaultConfig = {
 				classes: ['side-quote']
 			},
 			{
-				name: 'Needs clarification',
+				name: 'Marker',
 				element: 'span',
-				classes: ['needs-clarification']
+				classes: ['marker']
 			},
 			{
-				name: 'Wide spacing',
+				name: 'Spoiler',
 				element: 'span',
-				classes: ['wide-spacing']
-			},
-			{
-				name: 'Small caps',
-				element: 'span',
-				classes: ['small-caps']
+				classes: ['spoiler']
 			},
 			{
 				name: 'Code (dark)',
 				element: 'pre',
-				classes: ['stylish-code', 'stylish-code-dark']
+				classes: ['fancy-code', 'fancy-code-dark']
 			},
 			{
 				name: 'Code (bright)',
 				element: 'pre',
-				classes: ['stylish-code', 'stylish-code-bright']
+				classes: ['fancy-code', 'fancy-code-bright']
 			}
 		]
 	},

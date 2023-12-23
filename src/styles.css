@@ -17,11 +17,3 @@
 .ck.ck-dropdown.ck-code-block-dropdown .ck-dropdown__panel .ck-dropdown__search .ck-input-text {
     height: 35px;
 }
-
-
-.ck-content code {
-    color: #353535;
-    text-shadow: none;
-    font-size: 1em;
-    font-family: monospace;
-}
