@@ -2,6 +2,8 @@
  * @license Copyright (c) 2014-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
+
+
 import { ClassicEditor as ClassicEditorBase } from '@ckeditor/ckeditor5-editor-classic';
 import { Alignment } from '@ckeditor/ckeditor5-alignment';
 import { AutoImage } from '@ckeditor/ckeditor5-image';
@@ -27,21 +29,14 @@ import { WordCount } from '@ckeditor/ckeditor5-word-count';
 import { Highlight } from '@ckeditor/ckeditor5-highlight';
 import { Font } from '@ckeditor/ckeditor5-font';
 import { Style } from '@ckeditor/ckeditor5-style';
-import { Plugin } from '@ckeditor/ckeditor5-core';
 
+import { Plugin, type Editor } from 'ckeditor5/src/core';
 import { S3UploadAdapter } from "./s3-upload-adapter";
 import { EMOJIS_ARRAY, LANGUAGES, REDUCED_MATERIAL_COLORS } from "./data";
 import { Locale } from '@ckeditor/ckeditor5-utils';
 
 import { createLabeledInputText, LabeledFieldView } from '@ckeditor/ckeditor5-ui';
 
-import type { Editor, EditorConfig } from '@ckeditor/ckeditor5-core';
-import type { GetEventInfo } from '@ckeditor/ckeditor5-utils';
-import type { DocumentChangeEvent } from '@ckeditor/ckeditor5-engine';
-import type { ViewDocumentBlurEvent, ViewDocumentFocusEvent } from '@ckeditor/ckeditor5-engine/src/view/observer/focusobserver';
-
-import { ContextWatchdog, EditorWatchdog } from '@ckeditor/ckeditor5-watchdog';
-import { WatchdogConfig } from '@ckeditor/ckeditor5-watchdog/src/watchdog';
 
 import './styles.css'
 import './content.css'
@@ -382,6 +377,3 @@ ClassicEditor.defaultConfig = {
 	codeBlock: { languages: LANGUAGES },
 	placeholder: 'Type or paste your content here!'
 }
-
-export type { Editor, EditorConfig, ViewDocumentBlurEvent, ViewDocumentFocusEvent, DocumentChangeEvent, GetEventInfo };
-export { ContextWatchdog, EditorWatchdog, WatchdogConfig }
