@@ -15,11 +15,20 @@
 
 
 /* ---- Cross-editor content styles. --------------------------------------------------------------- */
-.ck.ck-content:not(.ck-style-grid__button__preview),
-.ck-source-editing-area textarea {
+.ck.ck-content:not(.ck-style-grid__button__preview) {
     /* Make sure all content containers have some min height to make them easier to locate. */
     height: 200px;
     padding: 1.5em 1.5em;
+}
+
+.ck-source-editing-area {
+    /* Make sure all content containers have some min height to make them easier to locate. */
+    height: 200px;
+}
+
+.ck-source-editing-area textarea {
+    padding: 1.5em 1.5em;
+    overflow: auto;
 }
 
 /* Make sure all content containers are distinguishable on a web page even of not focused. */
