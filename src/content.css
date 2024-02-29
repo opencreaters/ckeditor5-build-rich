@@ -15,7 +15,8 @@
 
 
 /* ---- Cross-editor content styles. --------------------------------------------------------------- */
-.ck.ck-content:not(.ck-style-grid__button__preview) {
+.ck.ck-content:not(.ck-style-grid__button__preview),
+.ck-source-editing-area textarea {
     /* Make sure all content containers have some min height to make them easier to locate. */
     min-height: 200px;
     padding: 1.5em 1.5em;
