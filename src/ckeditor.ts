@@ -65,8 +65,7 @@ class CodeBlockSearchPlugin extends Plugin {
 			this.element = enabledInput.fieldView.element!;
 			this.element.placeholder = 'Search...';
 
-			waiTForElementInDom('.ck-code-block-dropdown .ck-dropdown__panel').then(() => {
-				const dropdownPanel = this.editor.ui.element?.querySelector('.ck-code-block-dropdown .ck-dropdown__panel')!;
+			this.waiTForElementInDom().then((dropdownPanel) => {
 				dropdownPanel.append(enabledInput.element!);
 				const languages: { text: string; className: string; }[] = [];
 				this.element!.onkeyup = () => {
@@ -87,8 +86,9 @@ class CodeBlockSearchPlugin extends Plugin {
 						}
 					})
 				};
-				if (this.editor.plugins.get('WordCount')) { this.editor.ui.element?.querySelector('.ck.ck-editor__main')?.appendChild(this.editor.plugins.get('WordCount').wordCountContainer); }
 			});
+			if (this.editor.plugins.get('WordCount')) { this.editor.ui.element?.querySelector('.ck.ck-editor__main')?.appendChild(this.editor.plugins.get('WordCount').wordCountContainer); }
+
 		})
 	}
 
@@ -96,37 +96,31 @@ class CodeBlockSearchPlugin extends Plugin {
 		this.stopListening();
 		this.element.onkeyup = null;
 	}
+
+	waiTForElementInDom(): Promise<Element> {
+		return new Promise((resolve) => {
+			let element = this.editor.ui.element?.querySelector('.ck-code-block-dropdown .ck-dropdown__panel')
+			if (!element) {
+				let interval: NodeJS.Timer, timeout: NodeJS.Timeout;
+				interval = setInterval(() => {
+					element = this.editor.ui.element?.querySelector('.ck-code-block-dropdown .ck-dropdown__panel');
+					if (element) {
+						clearInterval(interval);
+						clearTimeout(timeout);
+						resolve(element);
+					}
+				}, 1000);
+			} else {
+				resolve(element);
+			}
+		});
+	}
 }
 
 function S3UploadAdapterPlugin(editor: Editor) {
 	editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
 		return new S3UploadAdapter(loader, editor);
 	};
-}
-
-function waiTForElementInDom(elementSelector: string, timeOutSec?: number, intervalSec?: number): Promise<any> {
-	return new Promise((resolve, reject) => {
-		let element = document.querySelector<HTMLElement>(elementSelector);
-		if (!element) {
-			let interval: NodeJS.Timer, timeout: NodeJS.Timeout;
-			interval = setInterval(() => {
-				element = document.querySelector<HTMLElement>(elementSelector);
-				if (element) {
-					clearInterval(interval);
-					clearTimeout(timeout);
-					resolve(element);
-				}
-			}, intervalSec || 50);
-			timeout = setTimeout(() => {
-				clearInterval(interval);
-				clearInterval(interval);
-				clearTimeout(timeout);
-				reject();
-			}, timeOutSec || 10000);
-		} else {
-			resolve(element);
-		}
-	});
 }
 
 
