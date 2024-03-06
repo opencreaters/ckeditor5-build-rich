@@ -63,29 +63,32 @@ class CodeBlockSearchPlugin extends Plugin {
 			enabledInput.class = 'ck-dropdown__search'
 			enabledInput.render();
 			this.element = enabledInput.fieldView.element!;
-			this.element.placeholder = 'Search...'
-			const dropdownPanel = this.editor.ui.element?.querySelector('.ck-code-block-dropdown .ck-dropdown__panel')!;
-			dropdownPanel.append(enabledInput.element!);
-			const languages: { text: string; className: string; }[] = [];
-			this.element!.onkeyup = () => {
-				if (!languages.length) {
-					dropdownPanel?.querySelectorAll('.ck-list .ck-list__item').forEach(x => {
-						const text = x.querySelector('button')!.innerText;
-						const className = `language-${x.querySelector('.ck-button__label')?.id}`;
-						x.classList.add(className);
-						languages.push({ text, className });
-					})
-				}
-				languages.forEach(language => {
-					const list = dropdownPanel.querySelector<HTMLDataListElement>(`.${language.className}`)!
-					if (!language.text.toLowerCase().includes(this.element.value.toLowerCase())) {
-						list.style.display = 'none';
-					} else {
-						list.style.display = '';
+			this.element.placeholder = 'Search...';
+
+			waiTForElementInDom('.ck-code-block-dropdown .ck-dropdown__panel').then(() => {
+				const dropdownPanel = this.editor.ui.element?.querySelector('.ck-code-block-dropdown .ck-dropdown__panel')!;
+				dropdownPanel.append(enabledInput.element!);
+				const languages: { text: string; className: string; }[] = [];
+				this.element!.onkeyup = () => {
+					if (!languages.length) {
+						dropdownPanel?.querySelectorAll('.ck-list .ck-list__item').forEach(x => {
+							const text = x.querySelector('button')!.innerText;
+							const className = `language-${x.querySelector('.ck-button__label')?.id}`;
+							x.classList.add(className);
+							languages.push({ text, className });
+						})
 					}
-				})
-			};
-			if (this.editor.plugins.get('WordCount')) { this.editor.ui.element?.querySelector('.ck.ck-editor__main')?.appendChild(this.editor.plugins.get('WordCount').wordCountContainer); }
+					languages.forEach(language => {
+						const list = dropdownPanel.querySelector<HTMLDataListElement>(`.${language.className}`)!
+						if (!language.text.toLowerCase().includes(this.element.value.toLowerCase())) {
+							list.style.display = 'none';
+						} else {
+							list.style.display = '';
+						}
+					})
+				};
+				if (this.editor.plugins.get('WordCount')) { this.editor.ui.element?.querySelector('.ck.ck-editor__main')?.appendChild(this.editor.plugins.get('WordCount').wordCountContainer); }
+			});
 		})
 	}
 
@@ -99,6 +102,31 @@ function S3UploadAdapterPlugin(editor: Editor) {
 	editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
 		return new S3UploadAdapter(loader, editor);
 	};
+}
+
+function waiTForElementInDom(elementSelector: string, timeOutSec?: number, intervalSec?: number): Promise<any> {
+	return new Promise((resolve, reject) => {
+		let element = document.querySelector<HTMLElement>(elementSelector);
+		if (!element) {
+			let interval: NodeJS.Timer, timeout: NodeJS.Timeout;
+			interval = setInterval(() => {
+				element = document.querySelector<HTMLElement>(elementSelector);
+				if (element) {
+					clearInterval(interval);
+					clearTimeout(timeout);
+					resolve(element);
+				}
+			}, intervalSec || 50);
+			timeout = setTimeout(() => {
+				clearInterval(interval);
+				clearInterval(interval);
+				clearTimeout(timeout);
+				reject();
+			}, timeOutSec || 10000);
+		} else {
+			resolve(element);
+		}
+	});
 }
 
 
