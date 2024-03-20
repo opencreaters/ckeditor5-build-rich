@@ -13,7 +13,6 @@ class FullscreenCommand extends Command {
         } else {
             this.editor.ui.element?.classList.add(className);
             mainEle.style.height = `calc(100% - ${toolbarHeight}px)`;
-            console.log(mainEle);
         }
         this.value = !isFullscreen;
     }
@@ -29,7 +28,6 @@ export default class FullScreenPlugin extends Plugin {
         editor.ui.componentFactory.add('fullScreen', locale => {
             const button = new ButtonView(locale);
             const command = editor.commands.get('toggleFullScreen')!;
-            console.log(command);
             const t = editor.t;
             const setView = (isFullscreen: boolean) => button.set({
                 label: t(isFullscreen ? 'Normal Mode' : 'Fullscreen Mode'),
