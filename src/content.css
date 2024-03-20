@@ -297,6 +297,7 @@
 .ck.ck-reset.ck-editor.fullscreen-mode .ck.ck-content,
 .ck.ck-reset.ck-editor.fullscreen-mode .ck-source-editing-area {
     flex: 1;
+    max-height: unset !important;
 }
 
 .ck.ck-button.ck-source-editing-button .ck.ck-button__label {
