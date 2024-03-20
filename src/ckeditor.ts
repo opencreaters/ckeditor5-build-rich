@@ -25,7 +25,6 @@ import { SpecialCharacters, SpecialCharactersEssentials } from '@ckeditor/ckedit
 import { Subscript, Superscript, Strikethrough } from '@ckeditor/ckeditor5-basic-styles';
 import { Table, TableCaption, TableCellProperties, TableColumnResize, TableProperties, TableToolbar } from '@ckeditor/ckeditor5-table';
 import { TextTransformation } from '@ckeditor/ckeditor5-typing';
-import { WordCount } from '@ckeditor/ckeditor5-word-count';
 import { Highlight } from '@ckeditor/ckeditor5-highlight';
 import { Font } from '@ckeditor/ckeditor5-font';
 import { Style } from '@ckeditor/ckeditor5-style';
@@ -36,13 +35,13 @@ import { EMOJIS_ARRAY, LANGUAGES, REDUCED_MATERIAL_COLORS } from "./data";
 import { Locale } from '@ckeditor/ckeditor5-utils';
 
 import { createLabeledInputText, LabeledFieldView } from '@ckeditor/ckeditor5-ui';
-import { Template, View } from '@ckeditor/ckeditor5-ui';
+import WordCountPlugin from './Plugins/WordCount';
 
 import './styles.css'
 import './content.css'
+import FullScreenPlugin from './Plugins/fullscreen';
+import moreIcon from '@ckeditor/ckeditor5-core/theme/icons/three-vertical-dots.svg'
 
-
-const isNil = (value: number) => value == null || value === undefined;
 
 /**
  * Enrich the special characters plugin with emojis.
@@ -119,88 +118,7 @@ class CodeBlockSearchPlugin extends Plugin {
 }
 
 
-class WordCountPlugin extends WordCount {
-	private outputView: View | undefined;
 
-	constructor(editor: Editor) {
-		super(editor)
-	}
-
-	init(): void {
-		super.init();
-		this.listenTo(this.editor, 'ready', () => {
-			if (this.editor.plugins.get('WordCount')) {
-				this.editor.ui.element?.querySelector('.ck.ck-editor__main')?.appendChild(this.wordCountContainer);
-			}
-		})
-	}
-
-	public get wordCountContainer(): HTMLElement {
-		this
-		const editor = this.editor;
-		const t = editor.t;
-		const displayWords = editor.config.get('wordCount.displayWords');
-		const displayCharacters = editor.config.get('wordCount.displayCharacters');
-		const maxWords = editor.config.get('wordCount.maxWords') as number;
-		const maxCharacters = editor.config.get('wordCount.maxCharacters') as number;
-		const bind = Template.bind(this, this);
-		const children = [];
-
-		if (!this.outputView) {
-			this.outputView = new View();
-			if (displayWords || displayWords === undefined) {
-				this.bind('_wordsLabel').to(this, 'words', words => t(`Words: %0${isNil(maxWords) ? '' : `/${maxWords}`}`, words));
-
-				children.push({
-					tag: 'div',
-					children: [
-						{
-							text: [bind.to('_wordsLabel')]
-						}
-					],
-					attributes: {
-						class: 'ck-word-count__words'
-					}
-				});
-			}
-
-			if (displayCharacters || displayCharacters === undefined) {
-				this.bind('_charactersLabel').to(this, 'characters', words => t(`Characters: %0${isNil(maxCharacters) ? '' : `/${maxCharacters}`}`, words));
-
-				children.push({
-					tag: 'div',
-					children: [
-						{
-							text: [bind.to('_charactersLabel')]
-						}
-					],
-					attributes: {
-						class: 'ck-word-count__characters'
-					}
-				});
-			}
-
-			this.outputView.setTemplate({
-				tag: 'div',
-				attributes: {
-					class: [
-						'ck',
-						'ck-word-count'
-					]
-				},
-				children
-			});
-
-			this.outputView.render();
-		}
-
-		return this.outputView.element!;
-	}
-
-	destroy(): void {
-		this.stopListening();
-	}
-}
 
 function S3UploadAdapterPlugin(editor: Editor) {
 	editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
@@ -265,15 +183,14 @@ ClassicEditor.builtinPlugins = [
 	TextTransformation,
 	TodoList,
 	Underline,
-	WordCountPlugin
+	WordCountPlugin,
+	FullScreenPlugin
 ];
 ClassicEditor.defaultConfig = {
 	toolbar: {
 		shouldNotGroupWhenFull: false,
 		items: [
 			'heading',
-			'|',
-			'style',
 			'|',
 			'bold',
 			'italic',
@@ -295,9 +212,6 @@ ClassicEditor.defaultConfig = {
 				]
 			},
 			'|',
-			'strikethrough',
-			'blockQuote',
-			'|',
 			// --- Text alignment ---------------------------------------------------------------------------
 			'alignment',
 			'|',
@@ -309,16 +223,19 @@ ClassicEditor.defaultConfig = {
 			'insertTable',
 			'codeBlock',
 			'|',
-			'outdent',
-			'indent',
-			'|',
 			'link',
 			'insertImage',
 			'mediaEmbed',
 			'|',
+			// 'style',
+			'strikethrough',
+			'blockQuote',
+			'outdent',
+			'indent',
 			'specialCharacters',
 			'|',
-			'sourceEditing'
+			'sourceEditing',
+			'fullScreen'
 		]
 	},
 	language: 'en',

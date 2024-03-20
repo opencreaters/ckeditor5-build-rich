@@ -277,3 +277,28 @@
 .ck.ck-word-count .ck-word-count__words {
     margin-right: var(--ck-spacing-standard)
 }
+
+
+/* ---- Fullscreen  Styles ------------------------------------------------------ */
+.ck.ck-reset.ck-editor.fullscreen-mode {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+}
+
+.ck.ck-reset.ck-editor.fullscreen-mode .ck.ck-editor__main {
+    display: flex;
+    flex-direction: column;
+}
+
+.ck.ck-reset.ck-editor.fullscreen-mode .ck.ck-content,
+.ck.ck-reset.ck-editor.fullscreen-mode .ck-source-editing-area {
+    flex: 1;
+}
+
+.ck.ck-button.ck-source-editing-button .ck.ck-button__label {
+    display: none;
+}
